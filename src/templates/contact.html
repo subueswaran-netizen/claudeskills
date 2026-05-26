@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+<div class="contact-page">
+  <h1>Contact Us</h1>
+  <div class="contact-card">
+    <div class="contact-info-row">
+      <span class="contact-label">Name:</span>
+      <span class="contact-value">{{ contact.name }}</span>
+    </div>
+    <div class="contact-info-row">
+      <span class="contact-label">Email:</span>
+      <span class="contact-value"><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></span>
+    </div>
+    <div class="contact-info-row">
+      <span class="contact-label">Address:</span>
+      <span class="contact-value contact-address">{{ contact.address }}</span>
+    </div>
+    {% if contact.social_links %}
+    <hr class="contact-section-divider">
+    <h2 class="social-heading">Connect With Us</h2>
+    <div class="social-links">
+      {% for link in contact.social_links %}
+        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="social-link-btn" aria-label="Visit us on {{ link.label }}">{{ link.label }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
