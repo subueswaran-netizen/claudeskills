@@ -2,48 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
   <title>{% block title %}Course Explainer{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-...existing code...
-/* reset basics */
-* { box-sizing: border-box; }
-html,body { margin:0; padding:0; height:100%; font-family: Arial, Helvetica, sans-serif; color:#222; background:#f4f5f6; }
-
-/* header */
-.site-header { background:#37474f; color:#fff; }
-.header-inner { max-width:1000px; margin:0 auto; padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
-.site-title { margin:0; font-size:28px; }
-
-/* nav */
-.main-nav { list-style:none; margin:0; padding:0; display:flex; gap:14px; align-items:center; }
-.main-nav li { margin:0; }
-.main-nav a { color:#dfeeff; text-decoration:none; padding:6px 8px; border-radius:4px; font-weight:600; }
-.main-nav a:hover { background:rgba(255,255,255,0.06); text-decoration:underline; }
-
-/* page container/content */
-.container { max-width:1000px; margin:28px auto; padding:32px 24px; background:#fff; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
-h1 { font-size:32px; margin-top:0; }
-p { line-height:1.6; color:#444; }
-
-/* list styling for course links */
-.container ul { padding-left:20px; }
-.container ul li a { color:#2a6fb6; }
-
-/* footer */
-.site-footer { max-width:1000px; margin:18px auto; padding:8px 20px; color:#555; font-size:13px; }
-...existing code...  <header class="site-header">
+  <header class="site-header">
     <div class="header-inner">
-      <h1 class="site-title">Course Explainer</h1>
-      <nav>
-        <ul class="main-nav">
-          <li><a href="{{ url_for('index') }}">Home</a></li>
-          <li><a href="{{ url_for('course', course_id=1) }}">Course Details</a></li>
-        </ul>
-      </nav>
+      <a href="{{ url_for('index') }}" style="text-decoration:none;"><h1 class="site-title">Course Explainer</h1></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+    <ul class="main-nav" id="mainNav">
+      <li><a href="{{ url_for('index') }}"{% if active_page == 'home' %} class="active"{% endif %}>Home</a></li>
+      <li><a href="{{ url_for('course', course_id=1) }}"{% if active_page == 'course' %} class="active"{% endif %}>Course Details</a></li>
+      <li><a href="{{ url_for('contact') }}"{% if active_page == 'contact' %} class="active"{% endif %}>Contact</a></li>
+    </ul>
   </header>
 
   <main class="container">
@@ -51,7 +30,19 @@ p { line-height:1.6; color:#444; }
   </main>
 
   <footer class="site-footer">
-    <div class="footer-inner">© 2023 Course Explainer App</div>
+    <div class="footer-inner">© 2026 Course Explainer App</div>
   </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('navToggle');
+      var nav = document.getElementById('mainNav');
+      if (!btn || !nav) return;
+      btn.addEventListener('click', function () {
+        var open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+  </script>
 </body>
 </html>

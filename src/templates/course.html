@@ -1,18 +1,35 @@
 {% extends 'layout.html' %}
 
+{% block title %}{{ course.title }} - Course Explainer{% endblock %}
+
 {% block content %}
-<div class="course-details">
-    <h1>{{ course.title }}</h1>
-    <p>{{ course.description }}</p>
-    <h2>Instructor: {{ course.instructor }}</h2>
-    <h3>Duration: {{ course.duration }}</h3>
-    {% if course.topics %}
-    <h4>Topics Covered:</h4>
-    <ul>
-        {% for topic in course.topics %}
-            <li>{{ topic }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+<div class="back-link" style="margin-bottom: var(--space-4);">
+  <a href="{{ url_for('index') }}">← Back to Home</a>
 </div>
+
+<article class="course-details">
+  <h1>{{ course.title }}</h1>
+  <div class="meta">
+    <span>Instructor: {{ course.instructor }}</span>
+    <span>Duration: {{ course.duration }}</span>
+  </div>
+  <p>{{ course.description }}</p>
+
+  {% if course.topics %}
+  <h4>Topics Covered</h4>
+  <ul>
+    {% for topic in course.topics %}
+      <li>{{ topic }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if course.videos %}
+  <div class="tutorials-section">
+    <h4>Tutorial Videos Available</h4>
+    <p class="video-count">This course includes {{ course.videos|length }} tutorial video{{ 's' if course.videos|length != 1 else '' }}.</p>
+    <a href="{{ url_for('tutorials', course_id=course_id) }}" class="btn">Watch Tutorial Videos →</a>
+  </div>
+  {% endif %}
+</article>
 {% endblock %}

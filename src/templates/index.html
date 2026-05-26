@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <title>Course Explainer</title>
-</head>
-<body>
-    {% include 'layout.html' %}
-    <div class="container">
-        <h1>Welcome to the Course Explainer</h1>
-        <p>This application provides an overview of various courses available.</p>
-        <h2>Available Courses</h2>
-        <ul>
-            <li><a href="{{ url_for('course', course_id=1) }}">Course 1</a></li>
-            <li><a href="{{ url_for('course', course_id=2) }}">Course 2</a></li>
-            <li><a href="{{ url_for('course', course_id=3) }}">Course 3</a></li>
-        </ul>
-    </div>
-</body>
-</html>
+{% extends 'layout.html' %}
+
+{% block title %}Course Explainer - Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Welcome to Course Explainer</h1>
+  <p>Explore curated programming courses with video tutorials, topics, and instructor details — designed to help you learn at your own pace.</p>
+</section>
+
+<h2 class="section-title">Available Courses</h2>
+<div class="course-grid">
+  {% for c in courses %}
+  <a href="{{ url_for('course', course_id=loop.index) }}" class="course-card">
+    <span class="course-badge">{{ c.duration }}</span>
+    <h3>{{ c.title }}</h3>
+    <p>{{ c.description }}</p>
+    <span class="arrow">View course →</span>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}
